@@ -11,8 +11,11 @@ export default function Home() {
             alt="vector"
           ></Image>
         </a>
-        <a href="/home" className="border relative bg-gradient-to-r from-violet-500 to-violet-600 w-30 h-11 text-center pt-2 rounded-md top-7.5 left-285 text-black font-[550]">Start for free.
-        </a>
+        <a href="/login" className="border relative bg-gradient-to-r from-violet-500 to-violet-600 w-30 h-11 text-center pt-2 rounded-md top-7.5 left-285 text-black font-[550]">Start for free
+        </a> {/* login */}
+      </div>
+      <div className="flex relative justify-center top-45 w-220 mx-auto">
+        <h1 className="font-[550] text-7xl text-center">Quantify your daily grind to <span className="bg-gradient-to-r from-violet-500 to-violet-600 bg-clip-text text-transparent">make ambition reality.</span></h1>
       </div>
     </div>
   );
