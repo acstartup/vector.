@@ -1,10 +1,36 @@
+// 
+"use client";
+
 import Image from "next/image";
 import vector from "../public/vector-full.png";
-import vectorDouble from "../public/vector-double4.png";
+import vectorDouble from "../public/vector-double.png";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [goalCount, setGoalCount] = useState<number | null>(null); {/* says that goalCount can either be number or null */}
+
+  useEffect(() => {
+
+    async function fetchCount() {
+      const res = await fetch('/api/goal-count')
+      const data = await res.json();
+      setGoalCount(data.count);
+    }
+
+    async function incrementCount() {
+      const res = await fetch('/api/goal-count')
+      const data = await res.json();
+      setGoalCount(data.count);
+    }
+
+    fetchCount();
+
+    const interval = setInterval(incrementCount, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="overflow-x-hidden overflow-y-hidden min-h-screen">
+    <div className="overflow-x-hidden min-h-screen">
       <div className="flex justify-between relative px-[100px] top-5 w-full h-40"> {/* header */}
         <a 
           className="w-30"
@@ -25,7 +51,7 @@ export default function Home() {
         <span className="z-[10] relative text-white text-6xl font-light">Quantify your daily grind to</span>
         <span className="z-[10] relative text-6xl right-0.25 font-semibold bg-gradient-to-r from-purple-500 via-pink-500 to-red-300 bg-clip-text text-transparent animate-gradient"> make ambition reality.</span>
         <h3 className="z-[10] relative top-6 text-lg font-light opacity-70 w-148">
-          Eliminate your feeling of falling behind with simple day-to-day tracking to reach your goals, from dominating your training to mastering your work and building a winning streak.  
+          Eliminate your feeling of falling behind with simple day-to-day auditing to reach your goals, from dominating your training to mastering your work and building a winning streak.  
         </h3>
         <a 
           href="/login"
@@ -36,7 +62,7 @@ export default function Home() {
           Vector is currently free for everyone.
         </h2>
 
-        <div className="z-[0] absolute left-[735px] top-[-223px] w-[1000px] h-[800px]">
+        <div className="z-[0] absolute left-[735px] top-[-230px] w-[1000px] h-[800px]">
           <Image
             src={vectorDouble}
             alt="full"
@@ -46,11 +72,16 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="z-[20] fixed flex justify-center left-1/2 -translate-x-1/2 bottom-3.5"> {/* Goal Tracking */}
+      <div className="z-[20] fixed flex justify-center left-1/2 -translate-x-1/2 bottom-3.5">
         <div className="py-1.5 px-3 backdrop-blur-xs font-normal text-white/60 rounded-full bg-white/2 border border-white/8">
-          100,000 goals reached with Vector
+          {goalCount || "0"} goals reached with Vector
         </div>
       </div>
+
+      {/* <div className="flex justify-center w-200 text-center left-">
+        <h1 className="text-5xl">Most people will experience half of their life by 18 without realizing. Now you know, make the most of it.</h1>
+      </div>
+      */}
     </div>
   );
 }
