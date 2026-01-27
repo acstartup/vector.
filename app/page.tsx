@@ -37,11 +37,11 @@ export default function Home() {
           href="/">
           <Image
             src={vector}
-            alt="vector"
+            alt="Vector."
           ></Image>
         </a>
         <a 
-          href="/login"
+          href="/dashboard/"
           className="z-[10] relative text-center bg-white w-45 h-9 pt-1.5 px-3 py-2.25 rounded-md text-center text-black hover:opacity-93">
           Get Started for Free
         </a>
@@ -54,7 +54,7 @@ export default function Home() {
           Eliminate your feeling of falling behind with simple day-to-day auditing to reach your goals, from dominating your training to mastering your work and building a winning streak.  
         </h3>
         <a 
-          href="/login"
+          href="/dashboard/"
           className="relative top-14 border border-white w-45 h-20 py-2.25 px-3 rounded-md hover:bg-white/10">
           Get Started for Free
         </a>
