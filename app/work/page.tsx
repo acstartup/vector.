@@ -93,7 +93,7 @@ export default function Home() {
                     <div className="bg-white/10 w-200 h-155 rounded-4xl"></div>
                     <div className="flex flex-col gap-5">
                         <div className="bg-white/10 w-20 h-20 rounded-3xl"></div>
-                        <div className="bg-white/10 w-95 h-130 rounded-4xl"></div>
+                        <div className="bg-white/10 w-92 h-130 rounded-4xl"></div>
                     </div>
                 </div>
             </div>
