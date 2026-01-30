@@ -7,6 +7,7 @@ import todo from "../../public/vector-todo.png"
 import weight from "../../public/vector-weight.png"
 import setting from "../../public/vector-setting.png"
 import logout from "../../public/vector-logout.png"
+import add from "../../public/vector-add.png"
 
 export default function Home() {
     return (
@@ -90,10 +91,28 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-row gap-6 mt-[90px] ml-[65px]">
-                    <div className="bg-white/10 w-210 h-155 rounded-4xl"></div>
-                    <div className="flex flex-col gap-5">
-                        <div className="bg-white/10 w-20 h-20 rounded-3xl"></div>
-                        <div className="bg-white/10 w-82 h-130 rounded-4xl"></div>
+                    <div className="bg-white/10 w-210 h-155 rounded-4xl">
+                        <div className="mt-[12px] px-[19px]">
+                            <div className="flex justify-between">
+                                <h1 className="">Weight Progression</h1>
+                                <div className="flex flex-row gap-1.5 items-center">
+                                    <a className="text-xs bg-white text-black font-semibold px-[4px] py-[3px] rounded-lg outline-[0.5] outline-black">TODAY</a>
+                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">WEEK</a>
+                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">MONTH</a>
+                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">YEAR</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-col gap-3">
+                        <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
+                            <Image
+                                className="w-8 h-8"
+                                src={add}
+                                alt="Add"
+                            ></Image>
+                        </div>
+                        <div className="bg-white/10 w-82 h-142 rounded-4xl"></div>
                     </div>
                 </div>
             </div>
