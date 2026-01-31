@@ -12,6 +12,7 @@ export default function Home() {
     const [password, setPassword ] = useState("");
 
     const atleast8Chars = password.length > 8; {/* returns boolean value to atleast8Chars */}
+    const specialSymbol = /[!@#$%^&*(){}[];:'"`~=+-_|]/.test(password)
 
     return (
         <div className="overflow-y-hidden min-h-screen">
@@ -41,16 +42,16 @@ export default function Home() {
                                 className="w-3 h-3"
                                 src={password.length === 0 ? circle : atleast8Chars ? check : x}
                                 alt="O"
-                            ></Image> {/* condition ? means check = true: false = circle, double condition, atleast8Chars is triggered only ic password.length is greater than 0 */}
-                            <h1 className={`relative text-xs bottom-0.5 ${password.length === 0? "text-white" : atleast8Chars ? "text-[#6AD03E]" : "text-[#D03E3E]"}`}>At least 8 characters</h1>
+                            ></Image> {/* condition ? means true = circle : false = atleast8Chars, double condition, atleast8Chars is triggered only ic password.length is greater than 0 */}
+                            <h1 className={`relative text-xs bottom-0.5 ${password.length === 0 ? "text-white" : atleast8Chars ? "text-[#6AD03E]" : "text-[#D03E3E]"} ${password.length === 0? "" : "font-semibold"}`}>At least 8 characters</h1>
                         </div> {/* utilizing front dash ` for commands inside of className */}
                         <div className="flex flex-row items-baseline gap-2">
                             <Image
                                 className="w-3 h-3"
-                                src={circle}
+                                src={password.length === 0 ? circle : specialSymbol ? check : x}
                                 alt="O"
                             ></Image>
-                            <h1 className="relative text-xs bottom-0.5">Special symbol (@,!,$,etc...)</h1>
+                            <h1 className={`relative text-xs bottom-0.5 ${password.length === 0 ? "" : specialSymbol ? "text-[#6AD03E]" : "text-[#D03E3E]"} ${password.length === 0 ? "" : "font-semibold"}`}>Special symbol (@,!,$,etc...)</h1>
                         </div>
                         <div className="flex flex-row items-baseline gap-2">
                             <Image
