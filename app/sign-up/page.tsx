@@ -17,6 +17,8 @@ export default function Home() {
     const lowercase = /[a-z]/.test(password); {/* true if their are lowercase letters */}
     const numbers = /[0-9]/.test(password); {/* true if their are numbers */}
 
+    const allParameters = (atleast8Chars && specialSymbol && uppercase && lowercase && numbers);
+
     const handleSignUp = () => {
         {/* check all password parameters are passed */}
         {/* check password matches confirm password */}
@@ -42,7 +44,7 @@ export default function Home() {
                     ></input>
                     <input
                         onChange={(e) => setPassword(e.target.value)}
-                        className="outline-white outline-[1px] bg-white/10 w-70 h-7 px-3 rounded-xl text-sm"
+                        className={`outline-[1px] bg-white/10 w-70 h-7 px-3 rounded-xl text-sm ${password.length === 0 ? "outline-white" : allParameters ? "outline-[#6AD03E]" : "outline-[#D03E3E]"}`}
                         placeholder="Password"
                     ></input> {/* e means event, e.target.value is current value in setPassword */}
                     <div className="relative flex flex-col bottom-1 pl-2 gap-1">
