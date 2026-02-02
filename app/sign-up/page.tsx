@@ -11,6 +11,7 @@ import { Fascinate } from "next/font/google";
 
 export default function Home() {
     const [password, setPassword ] = useState("");
+    const [confirmPassword, setConfirmPassword ] = useState("");
 
     const atleast8Chars = password.length > 8; {/* returns boolean value to atleast8Chars */}
     const specialSymbol = /[^a-zA-Z0-9]/.test(password); {/* ^ means not, so if password has something that is not a lowercase, uppercase, or number, it will return true */}
@@ -19,16 +20,30 @@ export default function Home() {
     const numbers = /[0-9]/.test(password); {/* true if their are numbers */}
 
     const [showError, setShowError] = useState(false);
+    const [passMatch, setPassMatch] = useState(false);
+    const [zero, setZero] = useState(false);
 
     const allParameters = (atleast8Chars && specialSymbol && uppercase && lowercase && numbers);
 
     const handleSignUp = () => {
+        const match = (password === confirmPassword);
         {/* check all password parameters are passed */}
+        if (password.length === 0) {
+            setZero(true);
+            return;
+        }
         if (!allParameters) {
+            setZero(false);
             setShowError(true);
             return;
         }
+        setShowError(false);
         {/* check password matches confirm password */}
+        if (!match && zero === false) {
+            setPassMatch(true);
+            return;
+        }
+        setPassMatch(false);
         {/* adding user sign up to Supabase */}
     }
 
@@ -98,7 +113,8 @@ export default function Home() {
                     </div>
                     <div className="flex flex-row relative bottom-2.5">
                         <input
-                            className={`outline-[1px] bg-white/10 w-70 h-7 px-3 rounded-xl text-sm ${showError ? "outline-[#D03E3E]" : "outline-white"}`}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className={`outline-[1px] bg-white/10 w-70 h-7 px-3 rounded-xl text-sm ${confirmPassword.length === 0 ? "outline-white" : allParameters ? confirmPassword === password && confirmPassword.length > 0 ? "outline-[#6AD03E]" : "outline-[#D03E3E]" : "outline-[#D03E3E]"}`}
                             placeholder="Confirm Password"
                         ></input>
                         <button className="relative right-8">
@@ -110,7 +126,9 @@ export default function Home() {
                         </button>
                     </div>
                     <div className="flex flex-col items-center relative pr-2"> {/* sign up */}
+                        {zero && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Password must have an input</h1>}
                         {showError && <h1 className="relative text-[#D03E3E] text-xs bottom-3">All password parameters must first be met</h1>} {/* showError conditional, only when showError is true does All password... show */}
+                        {passMatch && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Password must match confirm password inputs</h1>}
                         <button onClick={handleSignUp} className="bg-white px-2 py-1 w-18 rounded-xl text-black text-sm hover:opacity-80">
                             Sign Up
                         </button>
