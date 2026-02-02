@@ -14,6 +14,7 @@ export default function Home() {
     const atleast8Chars = password.length > 8; {/* returns boolean value to atleast8Chars */}
     const specialSymbol = /[^a-zA-Z0-9]/.test(password); {/* ^ means not, so if password has something that is not a lowercase, uppercase, or number, it will return true */}
     const uppercase = /[A-Z]/.test(password); {/* returns true when .test finds uppercase in password, GEN NOTE: WE WANT A TRUE RETURN VALUE, TRUE = WANTED SUCCESS PARAMETER */}
+    const lowercase = /[a-z]/.test(password); {/* true if their are lowercase letters */}
 
     return (
         <div className="overflow-y-hidden min-h-screen">
@@ -65,10 +66,10 @@ export default function Home() {
                         <div className="flex flex-row items-baseline gap-2">
                             <Image
                                 className="w-3 h-3"
-                                src={circle}
+                                src={password.length === 0 ? circle : lowercase ? check : x}
                                 alt="O"
                             ></Image>
-                            <h1 className="relative text-xs bottom-0.5">Lowercase letter (a-z)</h1>
+                            <h1 className={`relative text-xs bottom-0.5 ${password.length === 0 ? "" : lowercase ? "text-[#6AD03E]" : "text-[#D03E3E]"} ${password.length === 0 ? "" : "font-semibold"}`}>Lowercase letter (a-z)</h1>
                         </div>
                         <div className="flex flex-row items-baseline gap-2">
                             <Image
