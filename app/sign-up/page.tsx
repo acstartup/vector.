@@ -13,6 +13,7 @@ import { supabase } from "@/lib/supabase-client"
 
 export default function Home() {
     const [username, setUsername ] = useState("");
+    const [email, setEmail ] = useState("");
     const [password, setPassword ] = useState("");
     const [confirmPassword, setConfirmPassword ] = useState("");
 
@@ -28,6 +29,7 @@ export default function Home() {
     const [user, setUser] = useState(false);
     const [success, setSuccess] = useState(false);
     const [fail, setFail] = useState(false);
+    const [isEmail, setIsEmail] = useState(false);
 
     const allParameters = (atleast8Chars && specialSymbol && uppercase && lowercase && numbers);
 
@@ -36,28 +38,48 @@ export default function Home() {
 
         const match = (password === confirmPassword);
         {/* check all password parameters are passed */}
+        if (username.length === 0 && email.length === 0) {
+            setUser(true);
+            setIsEmail(true);
+            return;
+        }
+        setUser(false);
+        setIsEmail(false);
+
         if (username.length === 0) {
             setUser(true);
             return;
         }
+        setUser(false);
+        
+        if (email.length === 0) {
+            setIsEmail(true);
+            return;
+        }
+        setIsEmail(false);
 
         if (password.length === 0) {
             setZero(true);
             return;
         }
+        setZero(false);
+
         if (!allParameters) {
-            setZero(false);
             setShowError(true);
             return;
         }
+        setShowError(false);
+
         {/* check password matches confirm password */}
         if (!match && zero === false) {
             setPassMatch(true);
             return;
         }
+        setPassMatch(false);
+
         {/* adding user sign up to Supabase */}
         const { data, error } = await supabase.auth.signUp({
-            email: username,
+            email: email,
             password: password,
         });
 
@@ -66,6 +88,7 @@ export default function Home() {
             setFail(true);
             return;
         }
+        setFail(false);
 
         setSuccess(true);
     }
@@ -85,8 +108,14 @@ export default function Home() {
                 <div className="flex flex-col pt-6 gap-4 pl-5"> {/* sign up boxes */}
                     <input
                         onChange={(e) => setUsername(e.target.value)}
-                        className="outline-white outline-[1px] bg-white/10 w-70 h-7 px-3 rounded-xl text-sm"
+                        className={`outline-[1px] bg-white/10 w-70 h-7 px-3 rounded-xl text-sm ${username.length === 0 ? user ? "outline-[#D03E3E]" : "outline-white" : "outline-[#6AD03E]"}`}
                         placeholder="Username"
+                    ></input>
+                    <input
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={`outline-[1px] bg-white/10 w-70 h-7 px-3 rounded-xl text-sm ${email.length === 0 ? isEmail ? "outline-[#D03E3E]" : "outline-white" : "outline-[#6AD03E]"}`}
+                        placeholder="Email"
+                        type="email"
                     ></input>
                     <input
                         onChange={(e) => setPassword(e.target.value)}
@@ -151,6 +180,7 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col items-center relative pr-2"> {/* sign up */}
                         {user && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Must have username</h1>}
+                        {isEmail && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Must have email</h1>}
                         {zero && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Password must have an input</h1>}
                         {showError && <h1 className="relative text-[#D03E3E] text-xs bottom-3">All password parameters must first be met</h1>} {/* showError conditional, only when showError is true does All password... show */}
                         {passMatch && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Password must match confirm password inputs</h1>}
