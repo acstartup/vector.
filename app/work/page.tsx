@@ -166,7 +166,7 @@ export default function Home() {
                                             placeholder="Notes"
                                         ></input>
                                     </div>
-                                    <div className="flex relative pl-35 gap-1.5 top-2.75">
+                                    <div className="flex relative pl-35 gap-1.5 top-2.5">
                                         <button 
                                             onClick={() => setAddDropdownOpen(false)}
                                             className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-2 py-0.5 hover:bg-white/30">
