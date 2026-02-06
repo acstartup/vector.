@@ -18,6 +18,7 @@ import notes from "../../public/vector-notes.png"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
+    const [timeFilter, setTimeFilter] = useState("");
 
     return (
         <div className="flex flex-col">
@@ -105,15 +106,15 @@ export default function Home() {
                             <div className="flex justify-between">
                                 <h1 className="">Work Hours</h1>
                                 <div className="flex flex-row gap-1.5 items-center">
-                                    <a className="text-xs bg-white text-black font-semibold px-[4px] py-[3px] rounded-lg outline-[0.5] outline-black">TODAY</a>
-                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">WEEK</a>
-                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">MONTH</a>
-                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">YEAR</a>
+                                    <button onClick={() => setTimeFilter("today")} className={`text-xs font-semibold px-[4px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "today" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>TODAY</button>
+                                    <button onClick={() => setTimeFilter("week")}className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "week" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>WEEK</button>
+                                    <button onClick={() => setTimeFilter("month")}className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "month" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>MONTH</button>
+                                    <button onClick={() => setTimeFilter("year")} className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "year" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>YEAR</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col">
                         <div className="relative">
                             <button
                                 onClick={() => setAddDropdownOpen(!addDropdownOpen)} 
@@ -126,7 +127,7 @@ export default function Home() {
                             </button>
 
                             {addDropdownOpen && 
-                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-2xl py-2.5 px-2 w-70 h-38.5">
+                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.5 px-2 w-70 h-38.5">
                                     <div className="flex justify-between pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
@@ -149,7 +150,7 @@ export default function Home() {
                                             placeholder="Hours"
                                         ></input>
                                         <select
-                                            className="absolute ml-47.5 mt-1 outline-[1px] outline-white bg-white/10 rounded-lg pl-1 w-17 py-0.2 text-sm"
+                                            className="absolute ml-47.5 mt-1 outline-[1px] outline-white bg-white/10 rounded-lg pl-1 w-17 py-0.2 text-sm hover:bg-white/20"
                                         >
                                             <option value="hours">Hours</option>
                                             <option value="minutes">Minutes</option>
@@ -169,12 +170,12 @@ export default function Home() {
                                     <div className="flex relative pl-35 gap-1.5 top-2.5">
                                         <button 
                                             onClick={() => setAddDropdownOpen(false)}
-                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-2 py-0.5 hover:bg-white/30">
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-2 py-0.5 hover:bg-white/40">
                                             Cancel
                                         </button>
                                         <button 
                                             /* onClick={handleWork} */
-                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/30">
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/40">
                                             Add
                                         </button>
                                     </div>
