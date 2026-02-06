@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import vector from "../../public/vector-full.png"
 import dashboard from "../../public/vector-dashboard.png"
 import work from "../../public/vector-work.png"
@@ -8,8 +11,11 @@ import weight from "../../public/vector-weight.png"
 import setting from "../../public/vector-setting.png"
 import logout from "../../public/vector-logout.png"
 import add from "../../public/vector-add.png"
+import minus from "../../public/vector-minus.png"
 
 export default function Home() {
+    const [addDropdownOpen, setAddDropdownOpen] = useState(false);
+
     return (
         <div className="flex flex-col">
             <div className="flex justify-between relative top-5 px-[30px]">
@@ -105,12 +111,20 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-3">
-                        <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
-                            <Image
-                                className="w-8 h-8"
-                                src={add}
-                                alt="Add"
-                            ></Image>
+                        <div className="relative">
+                            <button
+                                onClick={() => setAddDropdownOpen(!addDropdownOpen)} 
+                                className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
+                                <Image
+                                    className="w-8 h-8"
+                                    src={addDropdownOpen ? minus : add}
+                                    alt="Add"
+                                ></Image>
+                            </button>
+
+                            {addDropdownOpen && 
+                                <div className="absolute bg-white/10 backdrop-blur-sm rounded-2xl w-40 h-20"></div>
+                            }
                         </div>
                         <div className="bg-white/10 w-92 h-142 rounded-3xl"></div>
                     </div>
