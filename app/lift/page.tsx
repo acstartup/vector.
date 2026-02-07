@@ -15,10 +15,12 @@ import minus from "../../public/vector-minus.png"
 import clock from "../../public/vector-clock.png"
 import notes from "../../public/vector-notes.png"
 import calendar from "../../public/vector-calendar.png"
+import trash from "../../public/vector-trash.png"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [exercises, setExercises] = useState<string[]>([]);
 
     return (
         <div className="flex flex-col">
@@ -146,12 +148,48 @@ export default function Home() {
                                         <Image
                                             className="absolute w-9.25 px-2 py-1"
                                             src={lift}
-                                            alt="clock"
+                                            alt="lift"
                                         ></Image>
                                         <input
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Session name"
                                         ></input>
+                                    </div>
+                                    {exercises.map((value, index) => (
+                                        <div key={index} className="flex justify-between pb-2 pl-8">
+                                            <input
+                                                value={value}
+                                                onChange={(e) => {
+                                                    const updated = [...exercises];
+                                                    updated[index] = e.target.value;
+                                                    setExercises(updated);
+                                                }}
+                                                className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-3 rounded-xl text-sm"
+                                                placeholder="Exercise name"
+                                            ></input>
+                                        </div>
+                                    ))}
+                                    <div className="flex flex-row gap-1 justify-end">
+                                        <button
+                                            onClick={() => setExercises(exercises.slice(0, -1))}
+                                            className="bg-[#A83333] border-white border-[1] rounded-lg mb-2 px-0.5 hover:bg-[#A83333]/80"
+                                        >
+                                            <Image
+                                                className="w-5 h-5"
+                                                src={trash}
+                                                alt="trash"
+                                            ></Image>
+                                        </button>
+                                        <button
+                                            onClick={() => setExercises([...exercises, ""])}
+                                            className="bg-white/10 border-white border-[1] rounded-lg mb-2 hover:bg-white/40"
+                                        >
+                                            <Image
+                                                className="w-6 h-6"
+                                                src={add}
+                                                alt="add"
+                                            ></Image>
+                                        </button>
                                     </div>
                                     <div className="flex justify-between">
                                         <Image
