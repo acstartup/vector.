@@ -104,7 +104,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-3 flex-1">
+                    <div className="flex flex-col gap-4 flex-1">
                         <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
                             <Image
                                 className="w-8 h-8"
@@ -112,7 +112,7 @@ export default function Home() {
                                 alt="Add"
                             ></Image>
                         </div>
-                        <div className="bg-white/10 w-full h-[73vh] rounded-3xl"></div>
+                        <div className="bg-white/10 w-full h-[74.5vh] rounded-3xl"></div>
                     </div>
                 </div>
             </div>
