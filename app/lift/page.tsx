@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import vector from "../../public/vector-full.png"
 import dashboard from "../../public/vector-dashboard.png"
@@ -8,8 +11,15 @@ import weight from "../../public/vector-weight.png"
 import setting from "../../public/vector-setting.png"
 import logout from "../../public/vector-logout.png"
 import add from "../../public/vector-add.png"
+import minus from "../../public/vector-minus.png"
+import clock from "../../public/vector-clock.png"
+import notes from "../../public/vector-notes.png"
+import calendar from "../../public/vector-calendar.png"
 
 export default function Home() {
+    const [addDropdownOpen, setAddDropdownOpen] = useState(false);
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+
     return (
         <div className="flex flex-col">
             <div className="flex justify-between relative top-5 px-[30px]">
@@ -104,13 +114,70 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-4 flex-1">
-                        <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
-                            <Image
-                                className="w-8 h-8"
-                                src={add}
-                                alt="Add"
-                            ></Image>
+                    <div className="flex flex-col flex-1">
+                        <div className="relative">
+                            <button
+                                onClick={() => setAddDropdownOpen(!addDropdownOpen)} 
+                                className={`bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl hover:bg-white/30 mb-3 ${addDropdownOpen ? "bg-white/30" : "bg-white/10"}`}>
+                                <Image
+                                    className="w-8 h-8"
+                                    src={addDropdownOpen ? minus : add}
+                                    alt="Add"
+                                ></Image>
+                            </button>
+
+                            {addDropdownOpen && 
+                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.5 px-2 w-full">
+                                    <div className="flex justify-between pb-2">
+                                        <Image
+                                            className="absolute w-9.5 px-2 py-0.5"
+                                            src={calendar}
+                                            alt="cal"
+                                        ></Image>
+                                        <input
+                                            type="date"
+                                            value={date}
+                                            onChange={(e) => setDate(e.target.value)}
+                                            className="outline-[1px] text-sm outline-white bg-white/10 w-full h-7 px-3 pl-9 rounded-xl text-sm [color-scheme:dark] [&::-webkit-calendar-picker-indicator]:hidden"
+                                            placeholder="Date"
+                                        ></input>
+                                    </div>
+                                    <div className="flex justify-between pb-2">
+                                        <Image
+                                            className="absolute w-9.25 px-2 py-1"
+                                            src={lift}
+                                            alt="clock"
+                                        ></Image>
+                                        <input
+                                            className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
+                                            placeholder="Session name"
+                                        ></input>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <Image
+                                            className="absolute w-9.5 px-2 py-0.75"
+                                            src={notes}
+                                            alt="notes"
+                                        ></Image>
+                                        <input
+                                            className="outline-[1px] placeholder-text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
+                                            placeholder="Notes"
+                                        ></input>
+                                    </div>
+                                    <div className="flex relative justify-end gap-1.5 top-2.5 mb-2">
+                                        <button 
+                                            onClick={() => setAddDropdownOpen(false)}
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-2 py-0.5 hover:bg-white/40">
+                                            Cancel
+                                        </button>
+                                        <button 
+                                            /* onClick={handleWork} */
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/40">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            }
                         </div>
                         <div className="bg-white/10 w-full h-[74.5vh] rounded-3xl"></div>
                     </div>
