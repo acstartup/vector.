@@ -88,8 +88,8 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="flex-1"> {/* dashboard page, flex-1 means a new organization */}
-                    <div className="flex mt-[90px] ml-[65px] gap-6">
-                        <div className="bg-white/10 w-70 h-45 rounded-3xl">
+                    <div className="flex mt-[90px] ml-[65px] gap-6 mr-[30px]">
+                        <div className="bg-white/10 flex-1 h-[24vh] rounded-3xl">
                             <div className="mt-[12px] px-[17px]">
                                 <div className="flex justify-between">
                                     <h1 className="">Work</h1>
@@ -104,7 +104,7 @@ export default function Home() {
                                 <h3 className="">hours</h3>
                             </div>
                         </div>
-                        <div className="bg-white/10 w-70 h-45 rounded-3xl">
+                        <div className="bg-white/10 flex-1 h-[24vh] rounded-3xl">
                             <div className="mt-[12px] px-[17px]">
                                 <div className="flex justify-between">
                                     <h1 className="">Lift</h1>
@@ -119,7 +119,7 @@ export default function Home() {
                                 <h3 className="">sessions</h3>
                             </div>
                         </div>
-                        <div className="bg-white/10 w-70 h-45 rounded-3xl">
+                        <div className="bg-white/10 flex-1 h-[24vh] rounded-3xl">
                             <div className="mt-[12px] px-[17px]">
                                 <div className="flex justify-between">
                                     <h1 className="">Habit</h1>
@@ -134,7 +134,7 @@ export default function Home() {
                                 <h3 className="">complete</h3>
                             </div>
                         </div>
-                        <div className="bg-white/10 w-70 h-45 rounded-3xl">
+                        <div className="bg-white/10 flex-1 h-[24vh] rounded-3xl">
                             <div className="mt-[12px] px-[17px]">
                                 <div className="flex justify-between">
                                     <h1 className="">Weight</h1>
@@ -151,15 +151,15 @@ export default function Home() {
                         </div>
                     </div>
 
-                    <div className="flex mt-[20px] ml-[65px] gap-6">
-                        <div className="bg-white/10 w-146 h-105 rounded-3xl">
+                    <div className="flex mt-[20px] ml-[65px] gap-6 mr-[30px]">
+                        <div className="bg-white/10 flex-1 h-[55vh] rounded-3xl">
                             <div className="mt-[12px] px-[17px]">
                                 <h1 className="">Progression Statistics</h1>
                                 <h2 className="relative mt-[15px] text-6xl right-0.5">83%</h2>
                                 <h3 className="w-30">of daily tasks completed</h3>
                             </div>
                         </div>
-                        <div className="bg-white/10 w-146 h-105 rounded-3xl">
+                        <div className="bg-white/10 flex-1 h-[55vh] rounded-3xl">
                             <div className="mt-[12px] px-[17px]">
                                 <h1 className="">Notes</h1>
                         </div></div>

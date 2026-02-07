@@ -90,8 +90,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="flex flex-row gap-6 mt-[90px] ml-[65px]">
-                    <div className="bg-white/10 w-210 h-155 rounded-4xl">
+                <div className="flex flex-row gap-6 mt-[90px] ml-[65px] mr-[30px] flex-1">
+                    <div className="bg-white/10 flex-[2] h-[80vh] rounded-3xl">
                         <div className="mt-[12px] px-[19px]">
                             <div className="flex justify-between">
                                 <h1 className="">Weight Progression</h1>
@@ -104,7 +104,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 flex-1">
                         <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
                             <Image
                                 className="w-8 h-8"
@@ -112,7 +112,7 @@ export default function Home() {
                                 alt="Add"
                             ></Image>
                         </div>
-                        <div className="bg-white/10 w-82 h-142 rounded-4xl"></div>
+                        <div className="bg-white/10 w-full h-[73vh] rounded-3xl"></div>
                     </div>
                 </div>
             </div>

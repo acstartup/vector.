@@ -93,7 +93,7 @@ export default function Home() {
                 <div className="flex flex-col items-center relative pl-3 pb-4"> {/* sign up */}
                     {emailEmpty && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Must have an username input.</h1>}
                     {passwordEmpty && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Must have an password input.</h1>}
-                    {fail && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Account creation failed. Try again later.</h1>}
+                    {fail && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Account log in failed. Try again later.</h1>}
                     <button
                         onClick={() => handleLogIn(email, password)}
                         className="bg-white px-2 py-1 w-15 rounded-xl text-black text-sm hover:opacity-80">

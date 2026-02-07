@@ -90,8 +90,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="flex flex-row gap-6 mt-[90px] ml-[65px]">
-                    <div className="bg-white/10 w-160 h-155 rounded-3xl">
+                <div className="flex flex-row gap-6 mt-[90px] ml-[65px] mr-[30px] flex-1">
+                    <div className="bg-white/10 flex-[2] h-[80vh] rounded-3xl">
                         <div className="mt-[12px] px-[19px]">
                             <div className="flex justify-between">
                                 <h1 className="">Habits Overview</h1>
@@ -104,7 +104,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 flex-1">
                         <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
                             <Image
                                 className="w-8 h-8"
@@ -113,7 +113,7 @@ export default function Home() {
                             ></Image>
                         </div>
                         <div className="flex flex-row gap-3">
-                            <div className="bg-white/70 w-64.5 h-40 rounded-3xl">
+                            <div className="bg-white/70 flex-1 h-[21vh] rounded-3xl">
                                 <div className="px-[16px] py-[12px]">
                                     <div className="flex flex-row gap-3 pb-2">
                                         <div className="bg-white/10 w-7 h-7 rounded-xl"></div>
@@ -123,7 +123,7 @@ export default function Home() {
                                     <h3 className="w-50 text-xs">Get atleast 10 minutes of sunlight daily</h3>
                                 </div>
                             </div>
-                            <div className="bg-white/10 w-64.5 h-40 rounded-3xl">
+                            <div className="bg-white/10 flex-1 h-[21vh] rounded-3xl">
                                 <div className="px-[16px] py-[12px]">
                                     <div className="flex flex-row gap-3 pb-2">
                                         <div className="bg-white/10 w-7 h-7 rounded-xl"></div>
@@ -135,7 +135,7 @@ export default function Home() {
                             </div>
                         </div>
                         <div className="flex flex-row gap-3">
-                            <div className="bg-white/10 w-64.5 h-40 rounded-3xl">
+                            <div className="bg-white/10 flex-1 h-[21vh] rounded-3xl">
                                 <div className="px-[16px] py-[12px]">
                                     <div className="flex flex-row gap-3 pb-2">
                                         <div className="bg-white/10 w-7 h-7 rounded-xl"></div>

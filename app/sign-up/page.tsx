@@ -189,7 +189,7 @@ export default function Home() {
                         {zero && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Password must have an input</h1>}
                         {showError && <h1 className="relative text-[#D03E3E] text-xs bottom-3">All password parameters must first be met</h1>} {/* showError conditional, only when showError is true does All password... show */}
                         {passMatch && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Password must match confirm password inputs</h1>}
-                        {success && <h1 className="relative text-[#6AD03E] text-xs bottom-3">Account successfully created. Please check your email to confirm.</h1>}
+                        {success && <h1 className="relative text-[#6AD03E] text-xs bottom-3 max-w-70 text-center">Account successfully created. Please check your email to confirm.</h1>}
                         {fail && <h1 className="relative text-[#D03E3E] text-xs bottom-3">Account creation failed. Try again later.</h1>}
                         <button onClick={handleSignUp} className="bg-white px-2 py-1 w-18 rounded-xl text-black text-sm hover:opacity-80">
                             Sign Up
