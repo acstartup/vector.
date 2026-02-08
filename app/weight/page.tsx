@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import vector from "../../public/vector-full.png"
 import dashboard from "../../public/vector-dashboard.png"
 import work from "../../public/vector-work.png"
@@ -8,8 +11,18 @@ import weight from "../../public/vector-weight.png"
 import setting from "../../public/vector-setting.png"
 import logout from "../../public/vector-logout.png"
 import add from "../../public/vector-add.png"
+import minus from "../../public/vector-minus.png"
+import notes from "../../public/vector-notes.png"
+import clock from "../../public/vector-clock.png"
+import calendar from "../../public/vector-calendar.png"
+import album from "../../public/vector-album.png"
 
 export default function Home() {
+    const [addDropdownOpen, setAddDropdownOpen] = useState(false);
+    const [timeFilter, setTimeFilter] = useState("today");
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    
+    
     return (
         <div className="flex flex-col">
             <div className="flex justify-between relative top-5 px-[30px]">
@@ -105,14 +118,76 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-3 flex-1">
-                        <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
-                            <Image
-                                className="w-8 h-8"
-                                src={add}
-                                alt="Add"
-                            ></Image>
+                        <div className="relative">
+                            <button
+                                onClick={() => setAddDropdownOpen(!addDropdownOpen)} 
+                                className={`bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl hover:bg-white/30 mb-3 ${addDropdownOpen ? "bg-white/30" : "bg-white/10"}`}>
+                                <Image
+                                    className="w-8 h-8"
+                                    src={addDropdownOpen ? minus : add}
+                                    alt="Add"
+                                ></Image>
+                            </button>
+
+                            {addDropdownOpen && 
+                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-2.5 w-50">
+                                    <div className="flex justify-between pb-2">
+                                        <Image
+                                            className="absolute w-9.5 px-2 py-0.5"
+                                            src={calendar}
+                                            alt="cal"
+                                        ></Image>
+                                        <input
+                                            type="date"
+                                            value={date}
+                                            onChange={(e) => setDate(e.target.value)}
+                                            className="outline-[1px] text-sm outline-white bg-white/10 w-full h-7 px-3 pl-9 rounded-xl text-sm [color-scheme:dark] [&::-webkit-calendar-picker-indicator]:hidden"
+                                            placeholder="Date"
+                                        ></input>
+                                    </div>
+                                    <div className="relative flex pb-2">
+                                        <Image
+                                            className="absolute w-9.5 px-2 py-0.5"
+                                            src={clock}
+                                            alt="clock"
+                                        ></Image>
+                                        <input
+                                            className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 pr-16 rounded-xl text-sm"
+                                            placeholder="Weight"
+                                        ></input>
+                                        <select
+                                            className="absolute right-1 top-1 outline-[1px] outline-white bg-white/10 rounded-lg pl-1 w-13 py-0.2 text-sm hover:bg-white/20 text-center"
+                                        >
+                                            <option value="lbs">lbs</option>
+                                            <option value="kg">kg</option>
+                                        </select>
+                                    </div>
+                                    <div className="flex justify-between pb-2">
+                                        <Image
+                                            className="absolute w-9.5 px-2 py-0.5"
+                                            src={notes}
+                                            alt="notes"
+                                        ></Image>
+                                        <input
+                                            className="outline-[1px] placeholder-text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
+                                            placeholder="Notes"
+                                        ></input>
+                                    </div>
+                                    <div className="flex justify-end flex-row gap-1.5">
+                                        <button 
+                                            onClick={() => setAddDropdownOpen(false)}
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-2 py-0.5 hover:bg-white/40">
+                                            Cancel
+                                        </button>
+                                        <button 
+                                            /* onClick={handleWork} */
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/40">
+                                            Add
+                                        </button>
+                                    </div>
+                                </div>
+                            }
                         </div>
-                        <div className="bg-white/10 w-full h-[73vh] rounded-3xl"></div>
                     </div>
                 </div>
             </div>
