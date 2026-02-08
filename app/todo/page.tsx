@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import vector from "../../public/vector-full.png"
 import dashboard from "../../public/vector-dashboard.png"
@@ -8,8 +11,16 @@ import weight from "../../public/vector-weight.png"
 import setting from "../../public/vector-setting.png"
 import logout from "../../public/vector-logout.png"
 import add from "../../public/vector-add.png"
+import minus from "../../public/vector-minus.png"
+import notes from "../../public/vector-notes.png"
+import clock from "../../public/vector-clock.png"
+import calendar from "../../public/vector-notes.png"
 
 export default function Home() {
+    const [addDropdownOpen, setAddDropdownOpen] = useState(false);
+    const [timeFilter, setTimeFilter] = useState("");
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+
     return (
         <div className="flex flex-col">
             <div className="flex justify-between relative top-5 px-[30px]">
@@ -91,7 +102,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-row gap-6 mt-[90px] ml-[65px] mr-[30px] flex-1">
-                    <div className="bg-white/10 flex-[2] h-[80vh] rounded-3xl">
+                    <div className="bg-white/10 flex-[1.25] h-[80vh] rounded-3xl">
                         <div className="mt-[12px] px-[19px]">
                             <div className="flex justify-between">
                                 <h1 className="">Habits Overview</h1>
@@ -105,46 +116,67 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="flex flex-col gap-3 flex-1">
-                        <div className="bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl">
-                            <Image
-                                className="w-8 h-8"
-                                src={add}
-                                alt="Add"
-                            ></Image>
-                        </div>
-                        <div className="flex flex-row gap-3">
-                            <div className="bg-white/70 flex-1 h-[21vh] rounded-3xl">
-                                <div className="px-[16px] py-[12px]">
-                                    <div className="flex flex-row gap-3 pb-2">
-                                        <div className="bg-white/10 w-7 h-7 rounded-xl"></div>
-                                        <h1 className="text-xl">Sunlight</h1>
+                        <div className="relative">
+                            <button
+                                onClick={() => setAddDropdownOpen(!addDropdownOpen)} 
+                                className={`bg-white/10 w-10 h-10 px-[5px] py-[3.5px] rounded-2xl hover:bg-white/30 mb-3 ${addDropdownOpen ? "bg-white/30" : "bg-white/10"}`}>
+                                <Image
+                                    className="w-8 h-8"
+                                    src={addDropdownOpen ? minus : add}
+                                    alt="Add"
+                                ></Image>
+                            </button>
+
+                            {addDropdownOpen && 
+                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-1.25 w-98">
+                                    <div className="flex justify-between pb-1.5 pl-2">
+                                        <h1 className="text-sm">Active on:</h1>
                                     </div>
-                                    <h2 className="text-6xl pb-2">1/1</h2>
-                                    <h3 className="w-50 text-xs">Get atleast 10 minutes of sunlight daily</h3>
-                                </div>
-                            </div>
-                            <div className="bg-white/10 flex-1 h-[21vh] rounded-3xl">
-                                <div className="px-[16px] py-[12px]">
-                                    <div className="flex flex-row gap-3 pb-2">
-                                        <div className="bg-white/10 w-7 h-7 rounded-xl"></div>
-                                        <h1 className="text-xl">Drink 1L Water</h1>
+                                    <div className="flex justify-between px-2 pb-2.5">
+                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Mon</button>
+                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Tue</button>
+                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Wed</button>
+                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Thr</button>
+                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Fri</button>
+                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Sat</button>
+                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Sun</button>
+                                        </div>
+                                    <div className="flex justify-between pb-2 px-2">
+                                        <Image
+                                            className="absolute w-9.25 px-2 py-1"
+                                            src={lift}
+                                            alt="lift"
+                                        ></Image>
+                                        <input
+                                            className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
+                                            placeholder="Session name"
+                                        ></input>
                                     </div>
-                                    <h2 className="text-6xl pb-2">0/1</h2>
-                                    <h3 className="w-50 text-xs">Drink at least 1 Liter of water daily</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex flex-row gap-3">
-                            <div className="bg-white/10 flex-1 h-[21vh] rounded-3xl">
-                                <div className="px-[16px] py-[12px]">
-                                    <div className="flex flex-row gap-3 pb-2">
-                                        <div className="bg-white/10 w-7 h-7 rounded-xl"></div>
-                                        <h1 className="text-xl">Hit the gym</h1>
+                                    <div className="flex justify-between px-2">
+                                        <Image
+                                            className="absolute w-9.5 px-2 py-0.75"
+                                            src={notes}
+                                            alt="notes"
+                                        ></Image>
+                                        <input
+                                            className="outline-[1px] placeholder-text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
+                                            placeholder="Notes"
+                                        ></input>
                                     </div>
-                                    <h2 className="text-6xl pb-2">0/1</h2>
-                                    <h3 className="w-50 text-xs">Go to the gym and get a good workout daily</h3>
+                                    <div className="flex relative justify-end gap-1.5 top-2.5 mb-2.5 px-2">
+                                        <button 
+                                            onClick={() => setAddDropdownOpen(false)}
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-2 py-0.5 hover:bg-white/40">
+                                            Cancel
+                                        </button>
+                                        <button 
+                                            /* onClick={handleWork} */
+                                            className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/40">
+                                            Add
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
