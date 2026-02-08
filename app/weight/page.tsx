@@ -130,7 +130,7 @@ export default function Home() {
                             </button>
 
                             {addDropdownOpen && 
-                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-2.5 w-50">
+                                <div className="absolute flex flex-col bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-2.5 flex-[0.5]">
                                     <div className="relative flex pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"

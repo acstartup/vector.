@@ -128,8 +128,8 @@ export default function Home() {
                             </button>
 
                             {addDropdownOpen && 
-                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.5 px-2 w-70 h-38.5">
-                                    <div className="flex justify-between pb-2">
+                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.5 px-2 w-80">
+                                    <div className="relative flex pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
                                             src={calendar}
@@ -139,39 +139,39 @@ export default function Home() {
                                             type="date"
                                             value={date}
                                             onChange={(e) => setDate(e.target.value)}
-                                            className="outline-[1px] text-sm outline-white bg-white/10 w-66 h-7 px-3 pl-9 rounded-xl text-sm [color-scheme:dark] [&::-webkit-calendar-picker-indicator]:hidden"
+                                            className="outline-[1px] text-sm outline-white bg-white/10 w-full h-7 px-3 pl-9 rounded-xl text-sm [color-scheme:dark] [&::-webkit-calendar-picker-indicator]:hidden"
                                             placeholder="Date"
                                         ></input>
                                     </div>
-                                    <div className="flex justify-between pb-2">
+                                    <div className="relative flex pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
                                             src={clock}
                                             alt="clock"
                                         ></Image>
                                         <input
-                                            className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-66 h-7 px-3 pl-9 rounded-xl text-sm"
+                                            className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 pr-20 rounded-xl text-sm"
                                             placeholder="Hours"
                                         ></input>
                                         <select
-                                            className="absolute ml-47.5 mt-1 outline-[1px] outline-white bg-white/10 rounded-lg pl-1 w-17 py-0.2 text-sm hover:bg-white/20"
+                                            className="absolute right-1 top-1 outline-[1px] outline-white bg-white/10 rounded-lg pl-1 w-17 py-0.2 text-sm hover:bg-white/20"
                                         >
                                             <option value="hours">Hours</option>
                                             <option value="minutes">Minutes</option>
                                         </select>
                                     </div>
-                                    <div className="flex justify-between">
+                                    <div className="relative flex pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
                                             src={notes}
                                             alt="notes"
                                         ></Image>
                                         <input
-                                            className="outline-[1px] placeholder-text-sm outline-white bg-white/10 backdrop-blur-none w-66 h-7 px-3 pl-9 rounded-xl text-sm"
+                                            className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Notes"
                                         ></input>
                                     </div>
-                                    <div className="flex relative pl-35 gap-1.5 top-2.5">
+                                    <div className="flex relative justify-end gap-1.5 top-2.5">
                                         <button 
                                             onClick={() => setAddDropdownOpen(false)}
                                             className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-2 py-0.5 hover:bg-white/40">
@@ -186,7 +186,6 @@ export default function Home() {
                                 </div>
                             }
                         </div>
-                        <div className="bg-white/10 w-full h-[74.5vh] rounded-3xl"></div>
                     </div>
                 </div>
             </div>

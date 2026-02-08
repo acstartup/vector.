@@ -271,7 +271,6 @@ export default function Home() {
                                 </div>
                             }
                         </div>
-                        <div className="bg-white/10 w-full h-[74.5vh] rounded-3xl"></div>
                     </div>
                 </div>
             </div>
