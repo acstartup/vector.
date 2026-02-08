@@ -19,7 +19,7 @@ import album from "../../public/vector-album.png"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
-    const [timeFilter, setTimeFilter] = useState("");
+    const [timeFilter, setTimeFilter] = useState("today");
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
     const [mon, setMon] = useState(false);
@@ -116,10 +116,10 @@ export default function Home() {
                             <div className="flex justify-between">
                                 <h1 className="">Habits Overview</h1>
                                 <div className="flex flex-row gap-1.5 items-center">
-                                    <a className="text-xs bg-white text-black font-semibold px-[4px] py-[3px] rounded-lg outline-[0.5] outline-black">TODAY</a>
-                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">WEEK</a>
-                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">MONTH</a>
-                                    <a className="text-xs bg-white/5 font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black">YEAR</a>
+                                    <button onClick={() => setTimeFilter("today")} className={`text-xs font-semibold px-[4px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "today" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>TODAY</button>
+                                    <button onClick={() => setTimeFilter("week")}className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "week" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>WEEK</button>
+                                    <button onClick={() => setTimeFilter("month")}className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "month" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>MONTH</button>
+                                    <button onClick={() => setTimeFilter("year")} className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "year" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>YEAR</button>
                                 </div>
                             </div>
                         </div>
