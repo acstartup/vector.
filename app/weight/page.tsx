@@ -131,7 +131,7 @@ export default function Home() {
 
                             {addDropdownOpen && 
                                 <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-2.5 w-50">
-                                    <div className="flex justify-between pb-2">
+                                    <div className="relative flex pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
                                             src={calendar}
@@ -162,14 +162,14 @@ export default function Home() {
                                             <option value="kg">kg</option>
                                         </select>
                                     </div>
-                                    <div className="flex justify-between pb-2">
+                                    <div className="relative flex pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
                                             src={notes}
                                             alt="notes"
                                         ></Image>
                                         <input
-                                            className="outline-[1px] placeholder-text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
+                                            className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Notes"
                                         ></input>
                                     </div>

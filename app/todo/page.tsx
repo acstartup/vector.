@@ -137,7 +137,7 @@ export default function Home() {
                             </button>
 
                             {addDropdownOpen && 
-                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-1.25 w-93">
+                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-0.75 w-93">
                                     <div className="flex justify-between pb-1.5 pl-2">
                                         <h1 className="text-sm">Active on:</h1>
                                     </div>
