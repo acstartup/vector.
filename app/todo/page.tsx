@@ -15,11 +15,20 @@ import minus from "../../public/vector-minus.png"
 import notes from "../../public/vector-notes.png"
 import clock from "../../public/vector-clock.png"
 import calendar from "../../public/vector-notes.png"
+import album from "../../public/vector-album.png"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
     const [timeFilter, setTimeFilter] = useState("");
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+
+    const [mon, setMon] = useState(false);
+    const [tue, setTue] = useState(false);
+    const [wed, setWed] = useState(false);
+    const [thu, setThu] = useState(false);
+    const [fri, setFri] = useState(false);
+    const [sat, setSat] = useState(false);
+    const [sun, setSun] = useState(false);
 
     return (
         <div className="flex flex-col">
@@ -128,23 +137,23 @@ export default function Home() {
                             </button>
 
                             {addDropdownOpen && 
-                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-1.25 w-98">
+                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.25 px-1.25 w-93">
                                     <div className="flex justify-between pb-1.5 pl-2">
                                         <h1 className="text-sm">Active on:</h1>
                                     </div>
                                     <div className="flex justify-between px-2 pb-2.5">
-                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Mon</button>
-                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Tue</button>
-                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Wed</button>
-                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Thr</button>
-                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Fri</button>
-                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Sat</button>
-                                            <button className="bg-white/10 px-2 py-0.25 border-[1] border-white rounded-xl text-sm">Sun</button>
+                                            <button onClick={() => setMon(!mon)} className={`px-2 py-0.25 border-[1] border-white rounded-xl text-sm ${mon ? "bg-white text-black font-semibold" : "bg-white/10 hover:bg-white/30"}`}>Mon</button>
+                                            <button onClick={() => setTue(!tue)} className={`px-2 py-0.25 border-[1] border-white rounded-xl text-sm ${tue ? "bg-white text-black font-semibold" : "bg-white/10 hover:bg-white/30"}`}>Tue</button>
+                                            <button onClick={() => setWed(!wed)} className={`px-2 py-0.25 border-[1] border-white rounded-xl text-sm ${wed ? "bg-white text-black font-semibold" : "bg-white/10 hover:bg-white/30"}`}>Wed</button>
+                                            <button onClick={() => setThu(!thu)} className={`px-2 py-0.25 border-[1] border-white rounded-xl text-sm ${thu ? "bg-white text-black font-semibold" : "bg-white/10 hover:bg-white/30"}`}>Thu</button>
+                                            <button onClick={() => setFri(!fri)} className={`px-2 py-0.25 border-[1] border-white rounded-xl text-sm ${fri ? "bg-white text-black font-semibold" : "bg-white/10 hover:bg-white/30"}`}>Fri</button>
+                                            <button onClick={() => setSat(!sat)} className={`px-2 py-0.25 border-[1] border-white rounded-xl text-sm ${sat ? "bg-white text-black font-semibold" : "bg-white/10 hover:bg-white/30"}`}>Sat</button>
+                                            <button onClick={() => setSun(!sun)} className={`px-2 py-0.25 border-[1] border-white rounded-xl text-sm ${sun ? "bg-white text-black font-semibold" : "bg-white/10 hover:bg-white/30"}`}>Sun</button>
                                         </div>
                                     <div className="flex justify-between pb-2 px-2">
                                         <Image
-                                            className="absolute w-9.25 px-2 py-1"
-                                            src={lift}
+                                            className="absolute w-10 px-2 py-0.25"
+                                            src={album}
                                             alt="lift"
                                         ></Image>
                                         <input
