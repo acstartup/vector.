@@ -15,11 +15,30 @@ import minus from "../../public/vector-minus.png"
 import calendar from "../../public/vector-calendar.png"
 import clock from "../../public/vector-clock.png"
 import notes from "../../public/vector-notes.png"
+import { saveWorkLog } from "@/app/actions"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
     const [timeFilter, setTimeFilter] = useState("today");
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [workHours, setWorkHours] = useState("");
+    const [notes, setNotes] = useState("");
+    const [unit, setUnit] = useState("");
+
+    const handleWork = async () => {
+        if (!workHours) return alert("Please enter hours.");
+
+        const result = await saveWorkLog({ date, workHours, notes, unit })
+
+        if (result.success) {
+            setAddDropdownOpen(false);
+            setWorkHours("");
+            setNotes("");
+            alert("Work saved!");
+        } else {
+            alert("Error: " + result.error)
+        }
+    }
 
     return (
         <div className="flex flex-col">
@@ -150,10 +169,14 @@ export default function Home() {
                                             alt="clock"
                                         ></Image>
                                         <input
+                                            value={workHours}
+                                            onChange={(e) => setWorkHours(e.target.value)}
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 pr-20 rounded-xl text-sm"
                                             placeholder="Hours"
                                         ></input>
                                         <select
+                                            value={unit}
+                                            onChange={(e) => setUnit(e.target.value)}
                                             className="absolute right-1 top-1 outline-[1px] outline-white bg-white/10 rounded-lg pl-1 w-17 py-0.2 text-sm hover:bg-white/20"
                                         >
                                             <option value="hours">Hours</option>
@@ -167,6 +190,8 @@ export default function Home() {
                                             alt="notes"
                                         ></Image>
                                         <input
+                                            value={notes}
+                                            onChange={(e) => setNotes(e.target.value)}
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Notes"
                                         ></input>
@@ -178,7 +203,7 @@ export default function Home() {
                                             Cancel
                                         </button>
                                         <button 
-                                            /* onClick={handleWork} */
+                                            onClick={handleWork}
                                             className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/40">
                                             Add
                                         </button>
