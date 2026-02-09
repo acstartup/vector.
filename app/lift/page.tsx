@@ -21,7 +21,12 @@ export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
     const [timeFilter, setTimeFilter] = useState("today");
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [sessionName, setSessionName] = useState("");
     const [exercises, setExercises] = useState<{ name: string; weight: string; weightType: string; sets: string; reps: string }[]>([]);
+    const [liftNotes, setLiftNotes] = useState("");
+
+    const handleLift = () => {
+    }
 
     return (
         <div className="flex flex-col">
@@ -154,6 +159,8 @@ export default function Home() {
                                             alt="lift"
                                         ></Image>
                                         <input
+                                            value={sessionName}
+                                            onChange={(e) => setSessionName(e.target.value)}
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Session name"
                                         ></input>
@@ -252,6 +259,8 @@ export default function Home() {
                                             alt="notes"
                                         ></Image>
                                         <input
+                                            value={liftNotes}
+                                            onChange={(e) => setLiftNotes(e.target.value)}
                                             className="outline-[1px] placeholder-text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Notes"
                                         ></input>
