@@ -1,7 +1,5 @@
 "use server";
 
-import { createClient } from "@utils/supabase/server"
-
 export async function saveWorkLog(data) {
     const supabase = await createClient;
 
