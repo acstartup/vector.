@@ -1,15 +1,16 @@
 "use server";
 
-export async function saveWorkLog(data) {
-    const supabase = await createClient;
+import { supabase } from "@/lib/supabase";
+import { revalidatePath } from "next/cache";
 
+export async function saveWorkLog(data) {
     const { error } = await supabase
         .from("work_logs")
         .insert([
             {
-                date: date.date,
-                hours: parseFloat(data.hours),
-                notes: data.notes,
+                date: data.date,
+                hours: parseFloat(data.workHours),
+                notes: data.workNotes,
                 unit: data.unit
             }
         ]);
@@ -25,8 +26,6 @@ export async function saveWorkLog(data) {
 }
 
 export async function saveLift(data) {
-    const supabase = await createClient;
-
     const { error } = await supabase
         .from("work_logs")
         .insert([

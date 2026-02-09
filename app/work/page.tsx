@@ -23,7 +23,7 @@ export default function Home() {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [workHours, setWorkHours] = useState("");
     const [workNotes, setWorkNotes] = useState("");
-    const [unit, setUnit] = useState("");
+    const [unit, setUnit] = useState("hours");
 
     const handleWork = async () => {
         if (!workHours) return alert("Please enter hours.");
