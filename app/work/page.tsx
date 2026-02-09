@@ -22,18 +22,18 @@ export default function Home() {
     const [timeFilter, setTimeFilter] = useState("today");
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [workHours, setWorkHours] = useState("");
-    const [notes, setNotes] = useState("");
+    const [workNotes, setWorkNotes] = useState("");
     const [unit, setUnit] = useState("");
 
     const handleWork = async () => {
         if (!workHours) return alert("Please enter hours.");
 
-        const result = await saveWorkLog({ date, workHours, notes, unit })
+        const result = await saveWorkLog({ date, workHours, workNotes, unit })
 
         if (result.success) {
             setAddDropdownOpen(false);
             setWorkHours("");
-            setNotes("");
+            setWorkNotes("");
             alert("Work saved!");
         } else {
             alert("Error: " + result.error)
@@ -190,8 +190,8 @@ export default function Home() {
                                             alt="notes"
                                         ></Image>
                                         <input
-                                            value={notes}
-                                            onChange={(e) => setNotes(e.target.value)}
+                                            value={workNotes}
+                                            onChange={(e) => setWorkNotes(e.target.value)}
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Notes"
                                         ></input>

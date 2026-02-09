@@ -23,3 +23,18 @@ export async function saveWorkLog(data) {
     revalidatePath("/work")
     return { success: true }
 }
+
+export async function saveLift(data) {
+    const supabase = await createClient;
+
+    const { error } = await supabase
+        .from("work_logs")
+        .insert([
+            {
+                date: date.date,
+                sessionName: data.sessionName,
+                excercises: excercises, /* updated excercises, not proper var */
+                notes: data.liftNotes
+            }
+        ])
+}
