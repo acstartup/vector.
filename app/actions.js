@@ -36,5 +36,13 @@ export async function saveLift(data) {
                 excercises: excercises, /* updated excercises, not proper var */
                 notes: data.liftNotes
             }
-        ])
+        ]);
+
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message };
+    }
+
+    revalidatePath("/lift")
+    return { success: true }
 }

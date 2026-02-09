@@ -16,6 +16,7 @@ import clock from "../../public/vector-clock.png"
 import notes from "../../public/vector-notes.png"
 import calendar from "../../public/vector-calendar.png"
 import trash from "../../public/vector-trash.png"
+import { saveLift } from "@/app/actions"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
@@ -25,7 +26,20 @@ export default function Home() {
     const [exercises, setExercises] = useState<{ name: string; weight: string; weightType: string; sets: string; reps: string }[]>([]);
     const [liftNotes, setLiftNotes] = useState("");
 
-    const handleLift = () => {
+    const handleLift = async () => {
+        if (!sessionName) return alert("Please enter session name.");
+        
+        const result = await saveLift({ date, sessionName, exercises, liftNotes})
+
+        if (result.success) {
+            setAddDropdownOpen(false);
+            setSessionName("");
+            setExercises([...exercises, { name: "", weight: "", weightType: "lbs", sets: "", reps: "" }]);
+            setLiftNotes("");
+            alert("Lift saved!");
+        } else {
+            alert("Error: " + result.error)
+        }
     }
 
     return (
