@@ -15,14 +15,32 @@ import minus from "../../public/vector-minus.png"
 import notes from "../../public/vector-notes.png"
 import clock from "../../public/vector-clock.png"
 import calendar from "../../public/vector-calendar.png"
-import album from "../../public/vector-album.png"
+import { saveWeight } from "@/app/actions"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
     const [timeFilter, setTimeFilter] = useState("today");
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [weightAmount, setWeightAmount] = useState("lbs");
+    const [unit, setUnit] = useState("");
+    const [weightNotes, setWeightNotes] = useState("");
     
-    
+    const handleWeight = async () => {
+        if (!weightAmount) return alert("Please enter weight amount.")
+
+        const result = await saveWeight({ date, weightAmount, unit, weightNotes})
+
+        if (result.success) {
+            setAddDropdownOpen(false);
+            setWeightAmount("");
+            setUnit("lbs");
+            setWeightNotes("");
+            alert("Weight saved!");
+        } else {
+            alert("Error: " + result.error)
+        }
+    }
+        
     return (
         <div className="flex flex-col">
             <div className="flex justify-between relative top-5 px-[30px]">
@@ -152,10 +170,14 @@ export default function Home() {
                                             alt="clock"
                                         ></Image>
                                         <input
+                                            value={weightAmount}
+                                            onChange={(e) => setWeightAmount(e.target.value)}                                            
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 pr-16 rounded-xl text-sm"
                                             placeholder="Weight"
                                         ></input>
                                         <select
+                                            value={unit}
+                                            onChange={(e) => setUnit}
                                             className="absolute right-1 top-1 outline-[1px] outline-white bg-white/10 rounded-lg pl-1 w-13 py-0.2 text-sm hover:bg-white/20 text-center"
                                         >
                                             <option value="lbs">lbs</option>
@@ -169,6 +191,8 @@ export default function Home() {
                                             alt="notes"
                                         ></Image>
                                         <input
+                                            value={weightNotes}
+                                            onChange={(e) => setWeightNotes(e.target.value)}
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Notes"
                                         ></input>
