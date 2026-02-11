@@ -33,15 +33,24 @@ export default function Home() {
     const [sat, setSat] = useState(false);
     const [sun, setSun] = useState(false);
 
-    const handleSave = async () => {
-        {/* check date */}
-        {/* check session name */}
-        
-        const result = await saveHabit({ date, habitName, notes})
-        
+    const handleSave = async () => {        
+        const activeDays = [];
+        if (mon) activeDays.push("mon");
+        if (tue) activeDays.push("tue");
+        if (wed) activeDays.push("wed");
+        if (thu) activeDays.push("thu");
+        if (fri) activeDays.push("fri");
+        if (sat) activeDays.push("sat");
+        if (sun) activeDays.push("sun");
+
+        const result = await saveHabit({ date, habitName, habitNotes, activeDays })
+
         if (result.success) {
             setHabitName("");
             setHabitNotes("");
+            setMon(false); setTue(false); setWed(false);
+            setThu(false); setFri(false); setSat(false); setSun(false);
+            setAddDropdownOpen(false);
             alert("Habit saved!");
         } else {
             alert("Error: " + result.error)
@@ -201,7 +210,7 @@ export default function Home() {
                                             Cancel
                                         </button>
                                         <button 
-                                            /* onClick={handleWork} */
+                                            onClick={handleSave}
                                             className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/40">
                                             Add
                                         </button>
