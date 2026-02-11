@@ -16,11 +16,14 @@ import notes from "../../public/vector-notes.png"
 import clock from "../../public/vector-clock.png"
 import calendar from "../../public/vector-notes.png"
 import album from "../../public/vector-album.png"
+import { saveHabit } from "@/app/actions"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
     const [timeFilter, setTimeFilter] = useState("today");
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
+    const [habitName, setHabitName] = useState("");
+    const [habitNotes, setHabitNotes] = useState("");
 
     const [mon, setMon] = useState(false);
     const [tue, setTue] = useState(false);
@@ -29,6 +32,21 @@ export default function Home() {
     const [fri, setFri] = useState(false);
     const [sat, setSat] = useState(false);
     const [sun, setSun] = useState(false);
+
+    const handleSave = async () => {
+        {/* check date */}
+        {/* check session name */}
+        
+        const result = await saveHabit({ date, habitName, notes})
+        
+        if (result.success) {
+            setHabitName("");
+            setHabitNotes("");
+            alert("Habit saved!");
+        } else {
+            alert("Error: " + result.error)
+        }
+    }
 
     return (
         <div className="flex flex-col">
@@ -157,6 +175,8 @@ export default function Home() {
                                             alt="lift"
                                         ></Image>
                                         <input
+                                            onChange={(e) => setHabitName(e.target.value)}
+                                            value={habitName}
                                             className="outline-[1px] text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Session name"
                                         ></input>
@@ -168,6 +188,8 @@ export default function Home() {
                                             alt="notes"
                                         ></Image>
                                         <input
+                                            value={habitNotes}
+                                            onChange={(e) => setHabitNotes(e.target.value)}
                                             className="outline-[1px] placeholder-text-sm outline-white bg-white/10 backdrop-blur-none w-full h-7 px-3 pl-9 rounded-xl text-sm"
                                             placeholder="Notes"
                                         ></input>

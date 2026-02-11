@@ -27,10 +27,10 @@ export async function saveWorkLog(data) {
 
 export async function saveLift(data) {
     const { error } = await supabase
-        .from("work_logs")
+        .from("lift_logs")
         .insert([
             {
-                date: date.date,
+                date: data.date,
                 sessionName: data.sessionName,
                 excercises: excercises, /* updated excercises, not proper var */
                 notes: data.liftNotes
@@ -43,5 +43,45 @@ export async function saveLift(data) {
     }
 
     revalidatePath("/lift")
+    return { success: true }
+}
+
+export async function saveHabit(data) {
+    const { error } = await supabase
+        .from("habit_logs")
+        .insert([
+            {
+                date: data.date,
+                activeOn: data.
+                sessionName: data.sessionName,
+                notes: data.liftNotes,
+            }
+        ])
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message };
+    }
+    
+    revalidatePath("/todo")
+    return { success: true }
+}
+
+export async function saveWeight(data) {
+    const { error } = await supabase
+        .from("weight_logs")
+        .insert([
+            {
+                date: data.date,
+                weightAmount: data.weightAmount,
+                unit: data.units,
+                notes: data.weightNotes,
+            }
+        ])
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message };
+    }
+    
+    revalidatePath("/weight")
     return { success: true }
 }
