@@ -52,16 +52,16 @@ export async function saveHabit(data) {
         .insert([
             {
                 date: data.date,
-                activeDays: data.activeDays,
-                sessionName: data.sessionName,
-                notes: data.liftNotes,
+                active_days: data.activeDays,
+                habit_name: data.habitName,
+                notes: data.habitNotes,
             }
         ])
     if (error) {
         console.error("Supabase Error: ", error.message);
         return { success: false, error: error.message };
     }
-    
+
     revalidatePath("/todo")
     return { success: true }
 }

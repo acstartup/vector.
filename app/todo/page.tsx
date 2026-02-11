@@ -33,7 +33,7 @@ export default function Home() {
     const [sat, setSat] = useState(false);
     const [sun, setSun] = useState(false);
 
-    const handleSave = async () => {        
+    const handleSave = async () => {
         const activeDays = [];
         if (mon) activeDays.push("mon");
         if (tue) activeDays.push("tue");
