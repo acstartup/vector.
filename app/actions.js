@@ -3,6 +3,20 @@
 import { supabase } from "@/lib/supabase";
 import { revalidatePath } from "next/cache";
 
+export async function getWorkLogs() {
+    const { data, error } = await supabase
+        .from("work_logs")
+        .select("*")
+        .order("date", { ascending: false });
+    
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message, data: []};
+    }
+
+    return { success: true, data }
+}
+
 export async function saveWorkLog(data) {
     const { error } = await supabase
         .from("work_logs")

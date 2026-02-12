@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import vector from "../../public/vector-full.png"
 import dashboard from "../../public/vector-dashboard.png"
 import work from "../../public/vector-work.png"
@@ -15,7 +15,11 @@ import minus from "../../public/vector-minus.png"
 import calendar from "../../public/vector-calendar.png"
 import clock from "../../public/vector-clock.png"
 import notes from "../../public/vector-notes.png"
-import { saveWorkLog } from "@/app/actions"
+import trash from "../../public/vector-trash.png"
+import calendarBlack from "../../public/vector-calendar-black.png"
+import clockBlack from "../../public/vector-clock-black.png"
+import notesBlack from "../../public/vector-notes-black.png"
+import { saveWorkLog, getWorkLogs } from "@/app/actions"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
@@ -24,6 +28,17 @@ export default function Home() {
     const [workHours, setWorkHours] = useState("");
     const [workNotes, setWorkNotes] = useState("");
     const [unit, setUnit] = useState("hours");
+    const [workLogs, setWorkLogs] = useState<any[]>([]);
+    const [notesDropdown, setNotesDropdown] = useState<number | null>(null);
+
+    const fetchLogs = async () => { {/* taking the data if it works and setting it to workLogs */}
+        const result = await getWorkLogs();
+        if (result.success) setWorkLogs(result.data); 
+    }
+
+    useEffect(() => {
+        fetchLogs();
+    }, []);
 
     const handleWork = async () => {
         if (!workHours) return alert("Please enter hours.");
@@ -34,6 +49,7 @@ export default function Home() {
             setAddDropdownOpen(false);
             setWorkHours("");
             setWorkNotes("");
+            fetchLogs();
             alert("Work saved!");
         } else {
             alert("Error: " + result.error)
@@ -120,8 +136,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                <div className="flex flex-row gap-6 mt-[90px] ml-[65px] mr-[30px] flex-1">
-                    <div className="bg-white/10 flex-[2] h-[80vh] rounded-3xl">
+                <div className="flex flex-row gap-6 mt-[90px] ml-[65px] pr-5 flex-1">
+                    <div className="bg-white/10 flex-[3] min-w-0 h-[80vh] rounded-3xl">
                         <div className="mt-[12px] px-[19px]">
                             <div className="flex justify-between">
                                 <h1 className="">Work Hours</h1>
@@ -134,7 +150,7 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col flex-1">
+                    <div className="flex flex-col shrink-0">
                         <div className="relative">
                             <button
                                 onClick={() => setAddDropdownOpen(!addDropdownOpen)} 
@@ -147,7 +163,7 @@ export default function Home() {
                             </button>
 
                             {addDropdownOpen && 
-                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.5 px-2 w-80">
+                                <div className="absolute z-10 bg-black/10 bg-white/20 backdrop-blur-lg rounded-3xl py-2.5 px-2 w-80">
                                     <div className="relative flex pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
@@ -211,6 +227,52 @@ export default function Home() {
                                 </div>
                             }
                         </div>
+
+                        {workLogs.map((log) => (
+                            <div key={log.id} className="relative flex pr-5 pb-12">
+                                <div className="flex items-center gap-1 w-full">
+                                    <div className="flex-1 flex items-center justify-between bg-white rounded-lg border-[1] border-black py-0.5 px-2">
+                                        <div className="flex items-center">
+                                            <Image
+                                                className="w-6 h-6"
+                                                src={calendarBlack}
+                                                alt="Date"
+                                            ></Image>
+                                            <p className="text-sm text-black pl-2 pr-4">{log.date}</p>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <Image
+                                                className="w-6 h-6"
+                                                src={clockBlack}
+                                                alt="Clock"
+                                            ></Image>
+                                            <p className="text-sm text-black pl-2 pr-4">{log.hours} {log.unit}</p>
+                                        </div>
+                                        <button
+                                            onClick={() => setNotesDropdown(notesDropdown === log.id ? null : log.id)}
+                                        >
+                                            <Image
+                                                className="w-6 h-6"
+                                                src={notesBlack}
+                                                alt="notes"
+                                            ></Image>
+                                        </button>
+                                    </div>
+                                    <button className="bg-[#A83333] w-7.25 h-7.25 rounded-lg">
+                                        <Image
+                                            className="px-0.75 py-0.75"
+                                            src={trash}
+                                            alt="trash"
+                                        ></Image>
+                                    </button>
+                                </div>
+                                {notesDropdown === log.id &&
+                                    <div className="absolute left-0 top-full mt-1 bg-white border-[1] border-black px-3 py-2 rounded-xl w-60 z-10">
+                                        <p className="text-sm text-black">{log.notes}</p>
+                                    </div>
+                                }
+                            </div>
+                    ))}
                     </div>
                 </div>
             </div>
