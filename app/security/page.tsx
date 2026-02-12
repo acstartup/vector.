@@ -90,43 +90,6 @@ export default function Home() {
                         </a>
                     </div>
                 </div>
-
-                <div className="flex flex-row gap-4 mt-[90px] ml-[65px]">
-                    <div className="flex w-98 h-23 rounded-3xl hover:bg-white/7">
-                        <div className="flex flex-row bg-white/7 ml-[15px] mt-[10.5px] rounded-2xl w-17.5 h-17.5">
-                            <Image
-                                className="flex mt-[11px] ml-[11px] w-12 h-12"
-                                src={personal}
-                                alt="personal"
-                            ></Image>
-                        </div>
-                        <div className="flex flex-col">
-                            <a
-                                href="../account/"
-                            >
-                                <h1 className="mt-[13px] ml-[15px] w-40 text-md font-bold">Account</h1>
-                                <h2 className=" ml-[15px] w-70 text-sm">View and manage your profile picture and display name.</h2>
-                            </a>
-                        </div>
-                    </div>
-                    <div className="flex w-98 h-23 rounded-3xl hover:bg-white/7">
-                        <div className="flex flex-row bg-white/7 ml-[15px] mt-[10.5px] rounded-2xl w-17.5 h-17.5">
-                            <Image
-                                className="flex mt-[14px] ml-[13.25px] w-10.75 h-10.75"
-                                src={security}
-                                alt="personal"
-                            ></Image>
-                        </div>
-                        <div className="flex flex-col">
-                            <a
-                                href="../security/"
-                            >
-                                <h1 className="mt-[13px] ml-[15px] w-40 text-md font-bold">Security</h1>
-                                <h2 className=" ml-[15px] w-70 text-sm">Change and manage your account password to keep your account secure.</h2>
-                            </a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     )
