@@ -90,6 +90,10 @@ export default function Home() {
                         </a>
                     </div>
                 </div>
+                <div className="py-22 px-40"> {/* bread crumb */}
+                    <a href="../setting/" className="text-lg font-semibold">Setting &gt;</a>
+                    <h1 className="text-4xl">Security</h1>
+                </div>
             </div>
         </div>
     )
