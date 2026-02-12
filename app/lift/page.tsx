@@ -43,7 +43,7 @@ export default function Home() {
     }
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col h-screen">
             <div className="flex justify-between relative top-5 px-[30px]">
                 <a className="w-30">
                     <Image
@@ -55,11 +55,11 @@ export default function Home() {
                 </a>
             </div>
 
-            <div className="flex">
-                <div className="flex flex-col gap-3 px-[30px] pt-[90px]">
+            <div className="flex grow min-h-0">
+                <div className="flex flex-col gap-3 px-[30px] pt-[90px] h-full overflow-y-auto">
                     <a
                         href="../dashboard/"
-                        className="bg-white/7 w-14 h-14 rounded-2xl grid place-items-center pb-0.5 hover:bg-[#753B95]/60">
+                        className="bg-white/7 w-14 h-14 shrink-0 rounded-2xl grid place-items-center pb-0.5 hover:bg-[#753B95]/60">
                         <Image
                             className="w-8.5 h-9"
                             src={dashboard}
@@ -68,7 +68,7 @@ export default function Home() {
                     </a>
                     <a 
                         href="../work/"
-                        className="bg-white/7 w-14 h-14 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
+                        className="bg-white/7 w-14 h-14 shrink-0 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
                         <Image
                             className="w-9 h-9"
                             src={work}
@@ -77,7 +77,7 @@ export default function Home() {
                     </a>
                     <a 
                         href="/lift/"
-                        className="bg-[#753B95] w-14 h-14 rounded-2xl grid place-items-center">
+                        className="bg-[#753B95] w-14 h-14 shrink-0 rounded-2xl grid place-items-center">
                         <Image
                             className="w-9 h-9"
                             src={lift}
@@ -86,7 +86,7 @@ export default function Home() {
                     </a>
                     <a
                         href="../todo/" 
-                        className="bg-white/7 w-14 h-14 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
+                        className="bg-white/7 w-14 h-14 shrink-0 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
                         <Image
                             className="w-9 h-9"
                             src={todo}
@@ -95,24 +95,24 @@ export default function Home() {
                     </a>
                     <a 
                         href="../weight/"
-                        className="bg-white/7 w-14 h-14 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
+                        className="bg-white/7 w-14 h-14 shrink-0 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
                         <Image
                             className="w-9 h-9"
                             src={weight}
                             alt="weight"
                         ></Image>
                     </a>
-                    <div className="flex flex-col pt-47 gap-3">
-                        <a 
+                    <div className="flex flex-col mt-auto pb-10 gap-3 shrink-0">
+                        <a
                             href="../setting/"
-                            className="bg-white/7 w-14 h-14 rounded-2xl grid place-items-center pl-1 hover:bg-[#753B95]/60">
+                            className="bg-white/7 w-14 h-14 shrink-0 rounded-2xl grid place-items-center pl-1 hover:bg-[#753B95]/60">
                             <Image
                                 className="w-9 h-9"
                                 src={setting}
                                 alt="setting"
                             ></Image>
                         </a>
-                        <a className="bg-white/7 w-14 h-14 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
+                        <a className="bg-white/7 w-14 h-14 shrink-0 rounded-2xl grid place-items-center hover:bg-[#753B95]/60">
                             <Image
                                 className="w-9 h-9"
                                 src={logout}
