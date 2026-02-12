@@ -25,7 +25,7 @@ export default function Home() {
             </div>
 
             <div className="flex">
-                <div className="flex flex-col gap-3 px-[30px] pt-[90px]">
+                <div className="flex flex-col flex-start gap-3 px-[30px] pt-[90px]">
                     <a
                         href="../dashboard/"
                         className="bg-white/7 w-14 h-14 rounded-2xl grid place-items-center pb-0.5 hover:bg-[#753B95]/60">
@@ -71,7 +71,7 @@ export default function Home() {
                             alt="weight"
                         ></Image>
                     </a>
-                    <div className="flex flex-col pt-47 gap-3">
+                    <div className="flex flex-col flex-end pt-85 gap-3">
                         <a 
                             href="/setting/"
                             className="bg-[#753B95] w-14 h-14 rounded-2xl grid place-items-center pl-1">
