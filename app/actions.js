@@ -54,6 +54,20 @@ export async function deleteWorkLog(id) {
     return { success: true }
 }
 
+export async function getLiftLogs() {
+    const { data, error } = await supabase
+        .from("lift_logs")
+        .select("*")
+        .order("date", { ascending: false });
+
+    if (error) {
+        console.error("Supabase Error: ", error.message)
+        return { success: false, error: error.message, data: [] };
+    }
+
+    return { success: true, data }
+}
+
 export async function saveLift(data) {
     const { error } = await supabase
         .from("lift_logs")
@@ -61,10 +75,25 @@ export async function saveLift(data) {
             {
                 date: data.date,
                 sessionName: data.sessionName,
-                excercises: excercises, /* updated excercises, not proper var */
+                excercises: data.exercises, /* updated excercises, not proper var */
                 notes: data.liftNotes
             }
         ]);
+
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message };
+    }
+
+    revalidatePath("/lift")
+    return { success: true }
+}
+
+export async function deleteLiftLogs(id) {
+    const { error } = await supabase
+        .from("lift_logs")
+        .delete()
+        .eq("id", id);
 
     if (error) {
         console.error("Supabase Error: ", error.message);

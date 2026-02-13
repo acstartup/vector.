@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import vector from "../../public/vector-full.png"
 import dashboard from "../../public/vector-dashboard.png"
@@ -16,7 +16,12 @@ import clock from "../../public/vector-clock.png"
 import notes from "../../public/vector-notes.png"
 import calendar from "../../public/vector-calendar.png"
 import trash from "../../public/vector-trash.png"
-import { saveLift } from "@/app/actions"
+import notesBlack from "../../public/vector-notes-black.png"
+import calendarBlack from "../../public/vector-calendar-black.png"
+import weightBlack from "../../public/vector-weight-black.png"
+import down from "../../public/vector-down.png"
+import up from "../../public/vector-up.png"
+import { saveLift, getLiftLogs, deleteLiftLogs } from "@/app/actions"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
@@ -25,6 +30,18 @@ export default function Home() {
     const [sessionName, setSessionName] = useState("");
     const [exercises, setExercises] = useState<{ name: string; weight: string; weightType: string; sets: string; reps: string }[]>([]);
     const [liftNotes, setLiftNotes] = useState("");
+    const [liftLogs, setLiftLogs] = useState<any []>([]);
+    const [liftDropdown, setLiftDropdown] = useState<number | null>(null);
+    const [noteDropdown, setNoteDropdown] = useState<number | null>(null);
+
+    const fetchLogs = async () => {
+        const result = await getLiftLogs();
+        if (result.success) setLiftLogs(result.data);
+    }
+
+    useEffect(() => {
+        fetchLogs();
+    }, []);
 
     const handleLift = async () => {
         if (!sessionName) return alert("Please enter session name.");
@@ -37,6 +54,15 @@ export default function Home() {
             setExercises([...exercises, { name: "", weight: "", weightType: "lbs", sets: "", reps: "" }]);
             setLiftNotes("");
             alert("Lift saved!");
+        } else {
+            alert("Error: " + result.error)
+        }
+    }
+
+    const handleDelete = async (id: number) => {
+        const result = await deleteLiftLogs(id);
+        if (result.success) {
+            fetchLogs();
         } else {
             alert("Error: " + result.error)
         }
@@ -128,12 +154,10 @@ export default function Home() {
                             <div className="flex justify-between">
                                 <h1 className="">Lift Progress</h1>
                                 <div className="flex flex-row gap-1.5 items-center">
-                                <div className="flex flex-row gap-1.5 items-center">
                                     <button onClick={() => setTimeFilter("today")} className={`text-xs font-semibold px-[4px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "today" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>TODAY</button>
                                     <button onClick={() => setTimeFilter("week")}className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "week" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>WEEK</button>
                                     <button onClick={() => setTimeFilter("month")}className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "month" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>MONTH</button>
                                     <button onClick={() => setTimeFilter("year")} className={`text-xs font-semibold px-[7px] py-[3px] rounded-lg outline-[0.5] outline-black ${timeFilter === "year" ? "bg-white text-black" : "bg-white/5 hover:bg-white/20 text-white"}`}>YEAR</button>
-                                </div>
                                 </div>
                             </div>
                         </div>
@@ -151,7 +175,7 @@ export default function Home() {
                             </button>
 
                             {addDropdownOpen && 
-                                <div className="absolute bg-black/10 bg-white/20 backdrop-blue-lg rounded-3xl py-2.5 px-2 w-full">
+                                <div className="absolute z-10 bg-black/10 bg-white/20 backdrop-blur-lg rounded-3xl py-2.5 px-2 w-full">
                                     <div className="flex justify-between pb-2">
                                         <Image
                                             className="absolute w-9.5 px-2 py-0.5"
@@ -286,14 +310,56 @@ export default function Home() {
                                             Cancel
                                         </button>
                                         <button 
-                                            /* onClick={handleWork} */
+                                            onClick={handleLift}
                                             className="bg-white/20 background-blur-lg text-white text-sm rounded-xl border-white border-[1] px-3 py-0.5 hover:bg-white/40">
                                             Add
                                         </button>
                                     </div>
                                 </div>
-                            }
+                            } 
                         </div>
+
+                        {liftLogs.map((log) => (
+                            <div key={log.id} className="flex flex-col pb-2 z-0">
+                                <div className="flex items-center gap-1">
+                                    <div className="flex-1 flex items-center justify-between bg-white rounded-lg border-[1] border-black py-0.5 px-2">
+                                        <button onClick={() => setLiftDropdown(liftDropdown === log.id ? null : log.id)}>
+                                            <Image className="w-5 h-5" src={liftDropdown === log.id ? down : up} alt=""></Image>
+                                        </button>
+                                        <div className="flex justify-between pr-3">
+                                            <Image className="w-6 h-6" src={calendarBlack} alt="clock"></Image>
+                                            <p className="text-sm text-black pt-0.5 pl-2">{log.date}</p>
+                                        </div>
+                                        <div className="flex justify-between pr-3">
+                                            <Image className="w-6 h-6" src={weightBlack} alt="weight"></Image>
+                                            <p className="text-sm text-black pt-0.5 pl-2">{log.sessionName}</p>
+                                        </div>
+                                        <button onClick={() => setNoteDropdown(noteDropdown === log.id ? null : log.id)}>
+                                            <Image className="w-6 h-6" src={notesBlack} alt="excercises" />
+                                        </button>
+                                    </div>
+                                    <button onClick={() => handleDelete(log.id)} className="bg-[#A83333] w-7.25 h-7.25 rounded-lg">
+                                        <Image className="px-0.75 py-0.75" src={trash} alt="trash" />
+                                    </button>
+                                </div>
+                                {liftDropdown === log.id &&
+                                    <div className="flex flex-col gap-0.5 mt-0.25 z-10">
+                                        {log.excercises?.map((ex: any, i: number) => (
+                                            <div key={i} className="flex items-center justify-between bg-white rounded-lg border-[1] border-black ml-4 py-0.5 px-2 mr-8">
+                                                <p className="text-sm text-black">Lift: {ex.name}</p>
+                                                <p className="text-sm text-black">Max Set: {ex.weight}{ex.weightType}</p>
+                                                <p className="text-sm text-black">SetsxReps: {ex.sets}x{ex.reps}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                }
+                                {noteDropdown === log.id && log.notes && 
+                                    <div className="bg-white border-black rounded-lg mt-1 px-2 ml-45 mr-8">
+                                        <p className="text-sm text-black py-0.5">{log.notes}</p>
+                                    </div>
+                                }
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
