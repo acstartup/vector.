@@ -39,6 +39,21 @@ export async function saveWorkLog(data) {
     return { success: true }
 }
 
+export async function deleteWorkLog(id) {
+    const { error } = await supabase
+        .from("work_logs")
+        .delete()
+        .eq("id", id);
+
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message };
+    }
+
+    revalidatePath("/work")
+    return { success: true }
+}
+
 export async function saveLift(data) {
     const { error } = await supabase
         .from("lift_logs")
