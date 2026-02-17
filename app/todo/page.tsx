@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import vector from "../../public/vector-full.png"
 import dashboard from "../../public/vector-dashboard.png"
@@ -15,8 +15,9 @@ import minus from "../../public/vector-minus.png"
 import notes from "../../public/vector-notes.png"
 import clock from "../../public/vector-clock.png"
 import calendar from "../../public/vector-notes.png"
+import trash from "../../public/vector-trash.png"
 import album from "../../public/vector-album.png"
-import { saveHabit } from "@/app/actions"
+import { saveHabit, getHabitLogs, updateHabitCount, deleteHabitLog } from "@/app/actions"
 
 export default function Home() {
     const [addDropdownOpen, setAddDropdownOpen] = useState(false);
@@ -24,6 +25,7 @@ export default function Home() {
     const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [habitName, setHabitName] = useState("");
     const [habitNotes, setHabitNotes] = useState("");
+    const [habitLogs, setHabitLogs] = useState<any[]>([]);
 
     const [mon, setMon] = useState(false);
     const [tue, setTue] = useState(false);
@@ -32,6 +34,18 @@ export default function Home() {
     const [fri, setFri] = useState(false);
     const [sat, setSat] = useState(false);
     const [sun, setSun] = useState(false);
+
+    const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+    const today = days[new Date().getDay()];
+
+    const fetchLogs = async () => {
+        const result = await getHabitLogs();
+        if (result.success) setHabitLogs(result.data);
+    }
+
+    useEffect(() => {
+        fetchLogs();
+    }, []);
 
     const handleSave = async () => {
         const activeDays = [];
@@ -55,6 +69,16 @@ export default function Home() {
         } else {
             alert("Error: " + result.error)
         }
+    }
+
+    const handleCount = async (id: number, currentCount: number) => {
+        const result = await updateHabitCount(id, currentCount === 0? currentCount + 1 : currentCount - 1);
+        if (result.success) fetchLogs();
+    }
+
+    const handleDelete = async (id: number) => {
+        const result = await deleteHabitLog(id);
+        if (result.success) fetchLogs();
     }
 
     return (
@@ -217,6 +241,28 @@ export default function Home() {
                                     </div>
                                 </div>
                             }
+                        </div>
+
+                        <div className="flex flex-wrap gap-3">
+                            {habitLogs
+                                .filter((log) => log.active_days?.includes(today))
+                                .map(((log) => (
+                                <div key={log.id} className="">
+                                    <div className={`h-40 w-80 rounded-3xl px-3 py-2 ${log.count === 0 ? "bg-white/10" : "bg-white/60"}`}>
+                                        <div className="flex justify-between">
+                                            <div className="flex justify-start">
+                                                <button onClick={() => handleCount(log.id, log.count || 0)} className="w-6 h-6 bg-white/20 rounded-lg py-2 hover:bg-white/50"></button>
+                                                <p className="relative text-white pl-3 text-lg bottom-0.5">{log.habit_name}</p>
+                                            </div>
+                                            <div className="flex justify-end">
+                                                <button onClick={() => handleDelete(log.id)} className="flex relative bottom-0.5 pr-0.5 py-0.5"><Image className="w-5 h-5" src={trash} alt=""></Image></button>
+                                            </div>
+                                        </div>
+                                        <h1 className="text-6xl">{log.count}/1</h1>
+                                        <p className="text-white pt-3">{log.notes}</p>
+                                    </div>
+                                </div>
+                            )))}
                         </div>
                     </div>
                 </div>

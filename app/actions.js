@@ -104,6 +104,20 @@ export async function deleteLiftLogs(id) {
     return { success: true }
 }
 
+export async function getHabitLogs() {
+    const { data, error } = await supabase
+        .from("habit_logs")
+        .select("*")
+        .order("date", { ascending: false });
+
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message, data: []};
+    }
+
+    return { success: true, data }
+}
+
 export async function saveHabit(data) {
     const { error } = await supabase
         .from("habit_logs")
@@ -115,6 +129,36 @@ export async function saveHabit(data) {
                 notes: data.habitNotes,
             }
         ])
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message };
+    }
+
+    revalidatePath("/todo")
+    return { success: true }
+}
+
+export async function updateHabitCount(id, newCount) {
+    const { error } = await supabase
+        .from("habit_logs")
+        .update({ count: newCount })
+        .eq("id", id);
+    
+    if (error) {
+        console.error("Supabase Error: ", error.message);
+        return { success: false, error: error.message };
+    }
+
+    revalidatePath("/todo")
+    return { success: true }
+}
+
+export async function deleteHabitLog(id) {
+    const { error } = await supabase
+        .from("habit_logs")
+        .delete()
+        .eq("id", id);
+
     if (error) {
         console.error("Supabase Error: ", error.message);
         return { success: false, error: error.message };
